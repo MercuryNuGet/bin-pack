@@ -50,6 +50,7 @@ namespace Mercury.BinPack
     {
         private Item<T> _item;
         private TreeNode<T> _right;
+        private TreeNode<T> _below;
 
         internal void Add(Item<T> item)
         {
@@ -60,7 +61,15 @@ namespace Mercury.BinPack
             else
             {
                 _right = new TreeNode<T>();
-                _right.Add(item);
+                _below = new TreeNode<T>();
+                TreeNode<T> toAddTo;
+
+                if (_item.Width > _item.Height)
+                    toAddTo = _below;
+                else
+                    toAddTo = _right;
+
+                toAddTo.Add(item);
             }
         }
 
@@ -74,6 +83,15 @@ namespace Mercury.BinPack
                 return result;
             }
         }
-        public int Height { get { return _item.Height; } }
+        public int Height
+        {
+            get
+            {
+                if (_item == null) return 0;
+                int result = _item.Height;
+                if (_below != null) result += _below.Height;
+                return result;
+            }
+        }
     }
 }
