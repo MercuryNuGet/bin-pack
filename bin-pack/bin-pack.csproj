@@ -8,7 +8,7 @@
     <ProjectGuid>{4C625E29-EC49-49A5-AAD4-63327BE12E93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bin_pack</RootNamespace>
+    <RootNamespace>Mercury.BinPack</RootNamespace>
     <AssemblyName>bin-pack</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

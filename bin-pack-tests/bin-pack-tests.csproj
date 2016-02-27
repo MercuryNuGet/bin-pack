@@ -8,7 +8,7 @@
     <ProjectGuid>{06FCBFFF-B0C4-4ECC-AF40-A4CFB3BD54B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bin_pack_tests</RootNamespace>
+    <RootNamespace>Mercury.BinPack.Tests</RootNamespace>
     <AssemblyName>bin-pack-tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
