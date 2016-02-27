@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Mercury.BinPack
 {
@@ -17,9 +18,11 @@ namespace Mercury.BinPack
         {
             var root = new TreeNode<T>();
 
-            foreach (T item in items)
+            foreach (Item<T> item in items
+                .Select(i => new Item<T>(i, new Size(_getWidth(i), _getHeight(i))))
+                .OrderByDescending(i => i.Volume))
             {
-                root.Add(new Item<T>(item, new Size(_getWidth(item), _getHeight(item))));
+                root.Add(item);
             }
 
             return new PackResult
