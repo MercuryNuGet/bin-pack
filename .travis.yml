@@ -1,0 +1,8 @@
+language: csharp
+solution: bin-pack.sln
+install:
+  - nuget restore bin-pack.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release bin-pack.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin-pack-tests/bin/Release/bin-pack-tests.dll
