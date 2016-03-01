@@ -1,11 +1,10 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Mercury.BinPack.Tests
 {
     public sealed class SizeCases : SpecificationByMethod
     {
-        private ISpecification Spec { get { throw new InvalidOperationException(); } set { Spec(value); } }
+        private new ISpecification Spec { set { Spec(value); } }
 
         protected override void Cases()
         {

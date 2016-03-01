@@ -17,7 +17,7 @@ namespace Mercury.BinPack.Tests
             public int Height { get; set; }
         }
 
-        private ISpecification Spec { get { throw new InvalidOperationException(); } set { Spec(value); } }
+        private new ISpecification Spec { set { Spec(value); } }
 
         protected override void Cases()
         {
