@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mercury.BinPack
@@ -54,27 +55,36 @@ namespace Mercury.BinPack
         private Item<T> _item;
         private TreeNode<T> _right;
         private TreeNode<T> _below;
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        internal IEnumerable<TreeNode<T>> GetAllLeafs()
+        {
+            if (_item == null)
+            {
+                yield return this;
+                yield break;
+            }
+            foreach (TreeNode<T> leaf in _right.GetAllLeafs()) yield return leaf;
+            foreach (TreeNode<T> leaf in _below.GetAllLeafs()) yield return leaf;
+        }
 
         internal void Add(Item<T> item)
         {
             if (_item == null)
             {
                 _item = item;
+                _right = new TreeNode<T> {Depth = Depth + 1, X = X + _item.Width, Y = Y};
+                _below = new TreeNode<T> {Depth = Depth + 1, X = X, Y = Y + _item.Height};
             }
             else
             {
-                _right = new TreeNode<T>();
-                _below = new TreeNode<T>();
-                TreeNode<T> toAddTo;
-
-                if (_item.Width > _item.Height)
-                    toAddTo = _below;
-                else
-                    toAddTo = _right;
-
+                TreeNode<T> toAddTo = GetAllLeafs().OrderBy(l => l.D2).First();
                 toAddTo.Add(item);
             }
         }
+
+        public int D2 {get { return X*X + Y*Y; }}
 
         public int Width
         {
@@ -96,5 +106,7 @@ namespace Mercury.BinPack
                 return result;
             }
         }
+
+        public int Depth { get; private set; }
     }
 }
