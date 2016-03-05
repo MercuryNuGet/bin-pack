@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
 
 namespace Mercury.BinPack.Tests
 {
-    public sealed class PackingCases : SpecificationByMethod
+    public sealed class PackingCases : MercurySuite
     {
         public class TypeToPack
         {
@@ -22,11 +21,9 @@ namespace Mercury.BinPack.Tests
             }
         }
 
-        private new ISpecification Spec { set { Spec(value); } }
-
-        protected override void Cases()
+        protected override void Specifications()
         {
-            Spec = "When packing one item (#w x #h), "
+            Specs += "When packing one item (#w x #h), "
                 .Arrange(() => new Packer<TypeToPack>(t => t.Width, t => t.Height))
                 .With(new {w = 1, h = 1})
                 .With(new {w = 40, h = 30})
@@ -35,7 +32,7 @@ namespace Mercury.BinPack.Tests
                 .Assert("Total width is #w", (r, d) => Assert.AreEqual(d.w, r.TotalWidth))
                 .Assert("Total height is #h", (r, d) => Assert.AreEqual(d.h, r.TotalHeight));
 
-            Spec = "When packing two items (#i1) (#i2), "
+            Specs += "When packing two items (#i1) (#i2), "
                 .Arrange(() => new Packer<TypeToPack>(t => t.Width, t => t.Height))
                 .With(new {i1 = new {w = 1, h = 1}, i2 = new {w = 1, h = 1}, expected = new {w = 2, h = 1}})
                 .With(new {i1 = new {w = 1, h = 2}, i2 = new {w = 1, h = 2}, expected = new {w = 2, h = 2}})
@@ -47,7 +44,7 @@ namespace Mercury.BinPack.Tests
                 .Assert("Total height is #expected", (r, d) => Assert.AreEqual(d.expected.h, r.TotalHeight));
 
 
-            Spec = "When packing three items #1, #2, #3, "
+            Specs += "When packing three items #1, #2, #3, "
                 .Arrange(() => new Packer<TypeToPack>(t => t.Width, t => t.Height))
                 .With(new TypeToPack(1, 1), new TypeToPack(1, 1), new TypeToPack(1, 1), new Size(2, 2))
                 .Act((sut, a, b, c, expect) => sut.Pack(a, b, c))
